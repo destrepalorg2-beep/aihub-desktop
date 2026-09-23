@@ -1,0 +1,57 @@
+{
+  "name": "ai-server-hub-desktop",
+  "version": "1.0.0",
+  "description": "AI Server Hub - Desktop Control Panel",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder build --win",
+    "build:mac": "electron-builder build --mac",
+    "build:all": "electron-builder build --win --mac",
+    "build:dir": "electron-builder build --win --dir"
+  },
+  "keywords": [
+    "ollama",
+    "ai",
+    "electron",
+    "desktop"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.aihub.desktop",
+    "productName": "AiHub",
+    "artifactName": "AiHub-Setup.${ext}",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.productivity",
+      "identity": null,
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "allowScripts": {
+    "electron@28.3.3": true
+  }
+}

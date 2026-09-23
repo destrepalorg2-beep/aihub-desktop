@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Настройки</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    html, body { width: 520px; height: 620px; overflow: hidden; }
+    body {
+      background: radial-gradient(ellipse at 50% 0%, rgba(10,132,255,0.08) 0%, transparent 60%), #08080f;
+    }
+    .settings-window {
+      width: 520px;
+      height: 620px;
+      background: rgba(10,10,20,0.95);
+      backdrop-filter: blur(40px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .content { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+    .settings-section { padding: 16px 20px; border-radius: var(--radius-lg); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+    .settings-section-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  </style>
+</head>
+<body>
+<div class="settings-window">
+  <div class="titlebar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span>⚙️</span>
+      <span class="titlebar-title">Настройки</span>
+    </div>
+    <div class="titlebar-controls">
+      <button class="titlebar-btn close" onclick="closeWin()">✕</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="settings-section animate-in">
+      <div class="settings-section-title">🖥 Сервер</div>
+      <div class="info-row">
+        <span class="info-label">Порт</span>
+        <input style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 12px;color:white;font-size:13px;width:80px;outline:none;text-align:center;" type="number" id="port" value="3000"/>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Хост</span>
+        <input style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 12px;color:white;font-size:13px;width:140px;outline:none;" id="host" value="0.0.0.0"/>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Ollama API URL</span>
+        <input style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 12px;color:white;font-size:12px;width:200px;outline:none;" id="ollamaUrl" value="http://localhost:11434"/>
+      </div>
+    </div>
+
+    <div class="settings-section animate-in">
+      <div class="settings-section-title">🚀 Запуск</div>
+      <div class="info-row">
+        <span class="info-label">Автозапуск с Windows</span>
+        <label class="toggle">
+          <input type="checkbox" id="autoStart"/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Запустить сервер при старте</span>
+        <label class="toggle">
+          <input type="checkbox" id="autoStartServer" checked/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Свернуть в трей при закрытии</span>
+        <label class="toggle">
+          <input type="checkbox" id="minimizeToTray" checked/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="settings-section animate-in">
+      <div class="settings-section-title">🔔 Уведомления</div>
+      <div class="info-row">
+        <span class="info-label">Уведомлять о подключениях</span>
+        <label class="toggle">
+          <input type="checkbox" id="notifyConnections" checked/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Уведомлять об ошибках</span>
+        <label class="toggle">
+          <input type="checkbox" id="notifyErrors" checked/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="settings-section animate-in">
+      <div class="settings-section-title">📦 Бэкапы</div>
+      <div class="info-row">
+        <span class="info-label">Автоматические бэкапы</span>
+        <label class="toggle">
+          <input type="checkbox" id="autoBackup" checked/>
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Хранить последних</span>
+        <input style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:5px 12px;color:white;font-size:13px;width:60px;outline:none;text-align:center;" type="number" id="backupCount" value="7"/>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:10px;justify-content:flex-end;">
+    <button class="btn btn-glass" onclick="closeWin()" style="padding:9px 20px;font-size:13px">Отмена</button>
+    <button class="btn btn-primary" onclick="saveSettings()" style="padding:9px 20px;font-size:13px">💾 Сохранить</button>
+  </div>
+</div>
+
+<script>
+const { ipcRenderer } = require('electron');
+
+async function init() {
+  const autoStart = await ipcRenderer.invoke('get-auto-start');
+  document.getElementById('autoStart').checked = autoStart;
+}
+
+async function saveSettings() {
+  const autoStart = document.getElementById('autoStart').checked;
+  await ipcRenderer.invoke('set-auto-start', autoStart);
+  closeWin();
+}
+
+function closeWin() { ipcRenderer.invoke('close-window'); }
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

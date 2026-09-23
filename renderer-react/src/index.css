@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #08080f;
+  --color-foreground: #f2f3f5;
+  --color-card: #1a1a2e;
+  --color-card-foreground: #f2f3f5;
+  --color-popover: #1e1e32;
+  --color-popover-foreground: #f2f3f5;
+  --color-primary: #7b76ff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #2f3136;
+  --color-secondary-foreground: #f2f3f5;
+  --color-muted: #2f3136;
+  --color-muted-foreground: #a8abb2;
+  --color-accent: #383a40;
+  --color-accent-foreground: #f2f3f5;
+  --color-destructive: #f0554f;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-input: rgba(255, 255, 255, 0.09);
+  --color-ring: #7b76ff;
+  --radius: 0.75rem;
+
+  --animate-in: animate-in 0.2s ease-out;
+  --animate-out: animate-out 0.15s ease-in;
+}
+
+@keyframes animate-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes animate-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoom-in-95 {
+  from { transform: scale(0.95); }
+  to { transform: scale(1); }
+}
+@keyframes zoom-out-95 {
+  from { transform: scale(1); }
+  to { transform: scale(0.95); }
+}
+@keyframes zoom-in-90 {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}
+
+/* Tailwind animation utilities used by the component */
+.animate-in { animation: animate-in 0.2s ease-out; }
+.animate-out { animation: animate-out 0.15s ease-in forwards; }
+.fade-in { animation: fade-in 0.2s ease-out; }
+.fade-out { animation: fade-out 0.15s ease-in forwards; }
+.fade-in-0 { animation: fade-in 0.2s ease-out; }
+.fade-out-0 { animation: fade-out 0.15s ease-in forwards; }
+.zoom-in-95 { animation: zoom-in-95 0.2s ease-out; }
+.zoom-out-95 { animation: zoom-out-95 0.15s ease-in forwards; }
+.zoom-in-90 { animation: zoom-in-90 0.2s ease-out; }
+
+#admin-nav-root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
