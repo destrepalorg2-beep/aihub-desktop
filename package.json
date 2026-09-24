@@ -8,7 +8,8 @@
     "dev": "electron . --dev",
     "build": "electron-builder build --win --publish never",
     "build:mac": "electron-builder build --mac --publish never",
-    "build:all": "electron-builder build --win --mac --publish never",
+    "build:linux": "electron-builder build --linux --publish never",
+    "build:all": "electron-builder build --win --mac --linux --publish never",
     "build:dir": "electron-builder build --win --dir --publish never"
   },
   "keywords": [
@@ -43,6 +44,13 @@
       "identity": null,
       "hardenedRuntime": false,
       "gatekeeperAssess": false
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Utility"
     },
     "nsis": {
       "oneClick": false,

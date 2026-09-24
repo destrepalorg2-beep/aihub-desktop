@@ -1,6 +1,6 @@
 name: Build desktop app
 
-# Push a tag like "v1.0.1" to trigger a build for both Windows and macOS,
+# Push a tag like "v1.0.1" to trigger a build for Windows, macOS and Linux,
 # published together as one GitHub Release. You can also run it manually
 # from the Actions tab (Run workflow) for a test build without a release.
 on:
@@ -22,6 +22,8 @@ jobs:
             build_cmd: npm run build
           - os: macos-latest
             build_cmd: npm run build:mac
+          - os: ubuntu-latest
+            build_cmd: npm run build:linux
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +43,7 @@ jobs:
           path: |
             dist/*.exe
             dist/*.dmg
+            dist/*.AppImage
 
       - name: Attach to release
         if: startsWith(github.ref, 'refs/tags/')
@@ -49,6 +52,7 @@ jobs:
           files: |
             dist/*.exe
             dist/*.dmg
+            dist/*.AppImage
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
